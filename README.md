@@ -6,7 +6,7 @@ An Altibase for Go's [database/sql](https://golang.org/pkg/database/sql/) packag
   * [Requirements](#requirements)
   * [Installation](#installation)
   * [Usage](#usage)
-    * [Examples](#examples)
+    * [Example](#example)
   * [License](#license)
 
 ---------------------------------------
