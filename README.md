@@ -35,7 +35,7 @@ import (
     _ "github.com/alexbrainman/odbc"
 )
     
-db, _ := sql.Open("odbc", "driver=driver_name;DSN=ip;CONNTYPE=2;PORT_NO=port;UID=uid;PWD=passwd")
+db, _ := sql.Open("odbc", "driver=driver_name;DSN=ip;CONNTYPE=network_type;PORT_NO=port;UID=uid;PWD=passwd")
 ```
 
 ### Example
