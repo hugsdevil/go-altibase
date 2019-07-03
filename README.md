@@ -5,6 +5,7 @@ An Altibase for Go's [database/sql](https://golang.org/pkg/database/sql/) packag
   * [Features](#features)
   * [Requirements](#requirements)
   * [Installation](#installation)
+  * [Configuration](#configuration)
   * [Usage](#usage)
     * [Example](#example)
   * [License](#license)
@@ -12,65 +13,47 @@ An Altibase for Go's [database/sql](https://golang.org/pkg/database/sql/) packag
 ---------------------------------------
 
 ## Features
-  * Connect Altibase using unixODBC
+  * Connect Altibase using Altibase ODBC Driver
 
 ## Requirements
-  * unixODBC Driver
   * Altibase ODBC Driver
 
 ## Installation
-1. Install [unixODBC](http://www.unixodbc.org/)
-2. Install go unixODBC package
+1. Install Altibase ODBC Driver
+2. Install go Altibase ODBC package
 ```bash
-go get github.com/alexbrainman/odbc
+go get github.com/bsshin71/alticli
 ```
-3. Install Altibase ODBC Driver
+
+## Configuration
+  * Must be check api/mksyscall_unix.pl, api/api_unix.go files because cgo options (LDFLAGS, CFLAGS)
 
 ## Usage
-Go Altibase Driver is an implementation of Go's database/sql/driver interface using unixODBC.
+Go Altibase Driver is an implementation of Go's database/sql/driver interface using Altibase ODBC Driver.
 
 ```go
 import (
     "database/sql"
-    _ "github.com/alexbrainman/odbc"
+    _ "github.com/bsshin71/alticli"
 )
     
-db, _ := sql.Open("odbc", "driver=driver_name;DSN=ip;CONNTYPE=network_type;PORT_NO=port;UID=uid;PWD=passwd")
+db, _ := sql.Open("alticli", "SERVER=ip;PORT=port;USER=user;PASSWORD=passwd")
 ```
 
 ### Example
-/etc/odbcinst.ini
-```bash
-[Altibase ODBC 6.1 Driver]
-Driver=/altibase/altibase_home/lib/libaltibase_odbc-64bit-ul64.so
-SETUP=/altibase/altibase_home/lib/libaltibase_odbc64S.so
-UsageCount=1
-```
-
-```bash
-Driver Name: Altibase ODBC 6.1 Driver
-Network:     TCP
-IP:          127.0.0.1
-Port:        20304
-UID:         foo
-Password:    bar
-```
-
 ```go
 package main
 
 import (
     "database/sql"
     "fmt"
-    _ "github.com/alexbrainman/odbc"
+    _ "github.com/bsshin71/alticli"
 )
 
 func main() {
-    // unix socket
-    // DSN=%s;CONNTYPE=2;PORT_NO=%s;UID=%s;PWD=%s
     // tcp socket
-    // DSN=%s;CONNTYPE=1;PORT_NO=%s;UID=%s;PWD=%s
-    db, err := sql.Open("odbc", "driver=Altibase ODBC 6.1 Driver;DSN=127.0.0.1;CONNTYPE=2;PORT_NO=20304;UID=foo;PWD=bar")
+    // SERVER=%s;PORT=%s;USER=%s;PASSWORD=%s
+    db, err := sql.Open("alticli", "SERVER=127.0.0.1;PORT=20300;USER=foo;PASSWORD=bar")
     
     if err != nil {
         fmt.Println(err)
